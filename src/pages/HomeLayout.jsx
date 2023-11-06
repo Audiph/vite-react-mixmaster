@@ -6,7 +6,9 @@ const HomeLayout = () => {
   return (
     <Fragment>
       <Navbar />
-      <Outlet />
+      <section className="page">
+        <Outlet />
+      </section>
     </Fragment>
   );
 };
