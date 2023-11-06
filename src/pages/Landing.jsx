@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import { CocktailList } from '../components';
 
 const cocktailSearchUrl =
   'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -12,9 +13,12 @@ export const loader = async () => {
 };
 
 const Landing = () => {
-  const data = useLoaderData();
-  console.log(data);
-  return <div>Landing</div>;
+  const { drinks, searchTerm } = useLoaderData();
+  return (
+    <Fragment>
+      <CocktailList drinks={drinks} />
+    </Fragment>
+  );
 };
 
 export default Landing;
