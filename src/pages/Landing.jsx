@@ -17,20 +17,20 @@ const searchCocktailsQuery = (searchTerm) => {
   };
 };
 
-export const loader = async ({ request }) => {
-  const url = new URL(request.url);
-  const searchTerm = url.searchParams.get('search') || '';
+export const loader =
+  (queryClient) =>
+  async ({ request }) => {
+    const url = new URL(request.url);
+    const searchTerm = url.searchParams.get('search') || '';
 
-  return { searchTerm };
-};
+    await queryClient.ensureQueryData(searchCocktailsQuery(searchTerm));
+
+    return { searchTerm };
+  };
 
 const Landing = () => {
   const { searchTerm } = useLoaderData();
-  const { data: drinks, isLoading } = useQuery(
-    searchCocktailsQuery(searchTerm)
-  );
-
-  if (isLoading) return <h4>Loading...</h4>;
+  const { data: drinks } = useQuery(searchCocktailsQuery(searchTerm));
 
   return (
     <Fragment>
